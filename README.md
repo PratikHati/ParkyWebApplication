@@ -1,5 +1,5 @@
 # Parky
-ParkyAPI
+ParkyAPI is a  RESTful API (C#) with Authentication.
 
 (REQUEST OBJECT)
 
