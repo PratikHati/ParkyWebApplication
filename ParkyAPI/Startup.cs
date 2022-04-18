@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using ParkyAPI.ParkyMapper;
 
 namespace ParkyAPI
 {
@@ -29,7 +31,9 @@ namespace ParkyAPI
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             
-            services.AddScoped<INationalParkRepository, NationalParkRepository>();
+            services.AddScoped<INationalParkRepository, NationalParkRepository>();      //Scoping of interface
+
+            services.AddAutoMapper(typeof(ParkyMappings));          //automapper to map DTO to original models
             
             services.AddControllers();  
         }
