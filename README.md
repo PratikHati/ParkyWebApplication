@@ -39,3 +39,14 @@ SERVER-
 					Expire- when it is invalid
 		3.Content - HTML, XML, JSON, BLOB
 			
+			
+DTO
+
+	1-This concept is used to decouple application data model and domain model.
+	2-Allows us to have full control over model attributes
+	3-Exposing only req attribute, not entire/all attribute(security)
+	4-Different DTO versons can be present for same model for different API
+
+AutoMapper(nuget)-
+	
+	To map Data model(DTOs) to Domain model
