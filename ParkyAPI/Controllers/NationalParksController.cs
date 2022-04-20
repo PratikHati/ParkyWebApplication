@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using ParkyAPI.Models;
 using ParkyAPI.Models.DTOs;
 using ParkyAPI.Repository.IRepository;
 using System;
@@ -27,7 +28,7 @@ namespace ParkyAPI.Controllers
 
         //GET
         [HttpGet]
-        public IActionResult GetNationalPark()
+        public IActionResult GetNationalParks()
         {
             var objs = _npr.GetNationalParks();
 
@@ -40,6 +41,55 @@ namespace ParkyAPI.Controllers
             }
 
             return Ok(objdto);
+        }
+
+        [HttpGet("{id:int}")]
+        public IActionResult GetNationalPark(int id)
+        {
+            var obj = _npr.GetNationalPark(id);
+
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            //but map to DTO
+            var objdto = new NationalParkDTO();
+
+            objdto = _imap.Map<NationalParkDTO>(obj);
+
+            return Ok(objdto);
+        }
+
+        [HttpPost]
+        public IActionResult CreateNationalPark([FromBody] NationalParkDTO ndto)
+        {
+            if(ndto == null)
+            {
+                return BadRequest(ModelState);      //modelstate contains all error info
+            }
+
+            if (_npr.NationalParkExists(ndto.Name))
+            {
+                ModelState.AddModelError("", "National Park Exists Already");
+
+                return StatusCode(404,ModelState);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var npobj = _imap.Map<NationalPark>(ndto);  //DTO to normal
+
+            if (!_npr.CreateNationalPark(npobj))
+            {
+                ModelState.AddModelError("",$"Something went wrong During Creation For {npobj.Name}");
+                return StatusCode(500,ModelState);
+            }
+
+            return Ok();
         }
     }
 }
