@@ -14,6 +14,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ParkyAPI.ParkyMapper;
+using System.Reflection;
+using System.IO;
 
 namespace ParkyAPI
 {
@@ -42,6 +44,11 @@ namespace ParkyAPI
                     Title = "Parky API",
                     Version = "1"
                 });
+
+                //Include /// comments in swagger UI
+                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";       //"Assembly.GetExecutingAssembly().GetName().Name" will retrive Project name from assembly
+                var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                options.IncludeXmlComments(cmlCommentsFullPath);
             });
 
             services.AddControllers();  

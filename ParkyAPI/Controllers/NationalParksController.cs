@@ -24,8 +24,12 @@ namespace ParkyAPI.Controllers
             _imap = im;
         }
     
-
-        //GET
+        /// <summary>
+        /// 
+        /// GET- List of all NationalParks
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetNationalParks()
         {
@@ -41,6 +45,14 @@ namespace ParkyAPI.Controllers
 
             return Ok(objdto);
         }
+
+        /// <summary>
+        /// 
+        /// GET- Only Particulr NationalPark
+        /// 
+        /// </summary>
+        /// <param name="id">INT id </param>
+        /// <returns></returns>
 
         [HttpGet("{id:int}", Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int id)
@@ -59,6 +71,14 @@ namespace ParkyAPI.Controllers
 
             return Ok(objdto);
         }
+
+        /// <summary>
+        /// 
+        /// POST- Create NationalPark
+        /// 
+        /// </summary>
+        /// <param name="ndto"> NationalParkDTO ndto</param>
+        /// <returns></returns>
 
         [HttpPost]
         public IActionResult CreateNationalPark([FromBody] NationalParkDTO ndto)
@@ -91,8 +111,17 @@ namespace ParkyAPI.Controllers
             return CreatedAtRoute("GetNationalPark", new { id = npobj.ID }, npobj);  //imprtant, it will return 201 not 200 Ok
         }
 
-        [HttpPatch("{id:int}",Name = "UpdateNationalFlag")] //when ever we want to modify "NationalFlag"
-        public IActionResult UpdateNationalFlag(int id, [FromBody]NationalParkDTO npdto)
+        /// <summary>
+        /// 
+        /// PATCH -   Update NationalPark
+        /// 
+        /// </summary>
+        /// <param name="id"> INT </param>
+        /// <param name="npdto"> NationalParkDTO </param>
+        /// <returns></returns>
+
+        [HttpPatch("{id:int}",Name = "UpdateNationalPark")] //when ever we want to modify "NationalFlag"
+        public IActionResult UpdateNationalPark(int id, [FromBody]NationalParkDTO npdto)
         {
             if(npdto == null || id != npdto.ID)
             {
@@ -111,8 +140,16 @@ namespace ParkyAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:int}", Name = "DeleteNationalFlag")] //when ever we want to modify "NationalFlag"
-        public IActionResult DeleteNationalFlag(int id)
+        /// <summary>
+        /// 
+        /// DELETE - Delete NationalPark
+        /// 
+        /// </summary>
+        /// <param name="id"> INT </param>
+        /// <returns></returns>
+
+        [HttpDelete("{id:int}", Name = "DeleteNationalPark")] //when ever we want to modify "NationalFlag"
+        public IActionResult DeleteNationalPark(int id)
         {
             if (!_npr.NationalParkExists(id))
             {
