@@ -50,3 +50,205 @@ DTO
 AutoMapper(nuget)-
 	
 	To map Data model(DTOs) to Domain model
+	
+API Documentation using SwashBuckle
+(Bellow one is a swagger.json file)
+
+
+		{
+			"openapi": "3.0.1",
+			"info": {
+				"title": "Parky API",
+				"version": "1"
+			},
+			"paths": {
+				//Parameter
+				
+				"/api/NationalParks": {		
+					//Methods
+				
+					"get": {					
+						"tags": [
+							"NationalParks"
+						],
+						"responses": {
+							"200": {
+								"description": "Success"
+							}
+						}
+					},
+					"post": {
+						"tags": [
+							"NationalParks"
+						],
+						"requestBody": {
+							"content": {
+								"application/json": {
+									"schema": {
+										"$ref": "#/components/schemas/NationalParkDTO"
+									}
+								},
+								"text/json": {
+									"schema": {
+										"$ref": "#/components/schemas/NationalParkDTO"
+									}
+								},
+								"application/*+json": {
+									"schema": {
+										"$ref": "#/components/schemas/NationalParkDTO"
+									}
+								}
+							}
+						},
+						"responses": {
+							"200": {
+								"description": "Success"
+							}
+						}
+					}
+				},
+				"/api/NationalParks/{id}": {
+					"get": {
+						"tags": [
+							"NationalParks"
+						],
+						//This is used as a unique casesensitike string
+						
+						"operationId": "GetNationalPark",
+						"parameters": [
+							{
+								"name": "id",
+								"in": "path",
+								"required": true,
+								"schema": {
+									"type": "integer",
+									"format": "int32"
+								}
+							}
+						],
+						"responses": {
+							"200": {
+								"description": "Success"
+							}
+						}
+					},
+					"patch": {
+						"tags": [
+							"NationalParks"
+						],
+						"operationId": "UpdateNationalFlag",
+						"parameters": [
+							{
+								"name": "id",
+								"in": "path",
+								"required": true,
+								"schema": {
+									"type": "integer",
+									"format": "int32"
+								}
+							}
+						],
+						"requestBody": {
+							"content": {
+								"application/json": {
+									"schema": {
+										"$ref": "#/components/schemas/NationalParkDTO"
+									}
+								},
+								"text/json": {
+									"schema": {
+										"$ref": "#/components/schemas/NationalParkDTO"
+									}
+								},
+								"application/*+json": {
+									"schema": {
+										"$ref": "#/components/schemas/NationalParkDTO"
+									}
+								}
+							}
+						},
+						"responses": {
+							"200": {
+								"description": "Success"
+							}
+						}
+					},
+					"delete": {
+						"tags": [
+							"NationalParks"
+						],
+						"operationId": "DeleteNationalFlag",
+						"parameters": [
+							{
+								"name": "id",
+								"in": "path",
+								"required": true,
+								"schema": {
+									"type": "integer",
+									"format": "int32"
+								}
+							}
+						],
+						"responses": {
+							"200": {
+								"description": "Success"
+							}
+						}
+					}
+				},
+			"components": {
+				"schemas": {
+					"NationalParkDTO": {
+						"required": [
+							"name",
+							"state"
+						],
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "integer",
+								"format": "int32"
+							},
+							"name": {
+								"type": "string"
+							},
+							"state": {
+								"type": "string"
+							},
+							"created": {
+								"type": "string",
+								"format": "date-time"
+							},
+							"established": {
+								"type": "string",
+								"format": "date-time"
+							}
+						},
+						"additionalProperties": false
+					},
+					"WeatherForecast": {
+						"type": "object",
+						"properties": {
+							"date": {
+								"type": "string",
+								"format": "date-time"
+							},
+							"temperatureC": {
+								"type": "integer",
+								"format": "int32"
+							},
+							"temperatureF": {
+								"type": "integer",
+								"format": "int32",
+								"readOnly": true
+							},
+							"summary": {
+								"type": "string",
+								"nullable": true
+							}
+						},
+						"additionalProperties": false
+					}
+				}
+			}
+		}
