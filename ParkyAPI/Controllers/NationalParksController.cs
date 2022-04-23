@@ -12,6 +12,8 @@ namespace ParkyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[ApiExplorerSettings(GroupName = "ParkyOpenAPISpec")]
+
     public class NationalParksController : Controller       //it will act as api controller
     {
         private INationalParkRepository _npr;
@@ -21,10 +23,7 @@ namespace ParkyAPI.Controllers
             _npr = npr;
             _imap = im;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+    
 
         //GET
         [HttpGet]

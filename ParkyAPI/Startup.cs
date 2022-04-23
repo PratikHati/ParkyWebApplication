@@ -34,7 +34,16 @@ namespace ParkyAPI
             services.AddScoped<INationalParkRepository, NationalParkRepository>();      //Scoping of interface
 
             services.AddAutoMapper(typeof(ParkyMappings));          //automapper to map DTO to original models
-            
+
+            services.AddSwaggerGen(options=> {                      //API documentation
+                options.SwaggerDoc("ParkyOpenAPISpec", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+
+                    Title = "Parky API",
+                    Version = "1"
+                });
+            });
+
             services.AddControllers();  
         }
 
@@ -47,6 +56,13 @@ namespace ParkyAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options=> {
+                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpec/swagger.json", "Parky API");
+                options.RoutePrefix = "";           //we want to use SwaggerUI page as default page, so change "launchUrl" in launchappsetting.json
+            });
 
             app.UseRouting();
 
