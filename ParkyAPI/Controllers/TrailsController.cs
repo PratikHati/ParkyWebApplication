@@ -78,7 +78,7 @@ namespace ParkyAPI.Controllers
             return Ok(objdto);
         }
 
-        /// <summary>
+        /// B<summary>
         /// 
         /// POST- Create Trail 
         /// 
@@ -91,7 +91,7 @@ namespace ParkyAPI.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         [ProducesDefaultResponseType]
-        public IActionResult CreateTrail([FromBody] TrailUpsertDTO ndto)
+        public IActionResult CreateTrail([FromBody] TrailCreateDTO ndto)
         {
             if (ndto == null)
             {
@@ -135,8 +135,8 @@ namespace ParkyAPI.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         [ProducesDefaultResponseType]
-        public IActionResult UpdateTrail(int id, [FromBody] TrailUpsertDTO npdto)
-        {
+        public IActionResult UpdateTrail(int id, [FromBody] TrailUpdateDTO npdto)
+        {   
             if (npdto == null || id != npdto.Id)
             {
                 return BadRequest(ModelState);

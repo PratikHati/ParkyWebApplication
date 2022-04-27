@@ -66,8 +66,8 @@
             <param name="id">INT id </param>
             <returns></returns>
         </member>
-        <member name="M:ParkyAPI.Controllers.TrailsController.CreateTrail(ParkyAPI.Models.DTOS.TrailUpsertDTO)">
-            <summary>
+        <member name="M:ParkyAPI.Controllers.TrailsController.CreateTrail(ParkyAPI.Models.DTOS.TrailCreateDTO)">
+            B<summary>
             
             POST- Create Trail 
             
@@ -75,7 +75,7 @@
             <param name="ndto"> TrailDTO ndto</param>
             <returns></returns>
         </member>
-        <member name="M:ParkyAPI.Controllers.TrailsController.UpdateTrail(System.Int32,ParkyAPI.Models.DTOS.TrailUpsertDTO)">
+        <member name="M:ParkyAPI.Controllers.TrailsController.UpdateTrail(System.Int32,ParkyAPI.Models.DTOS.TrailUpdateDTO)">
             <summary>
             
             PATCH -   Update Trail
