@@ -49,5 +49,50 @@
             <param name="id"> INT </param>
             <returns></returns>
         </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.GetTrails">
+            <summary>
+            
+            GET- List of all Trails
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.GetTrail(System.Int32)">
+            <summary>
+            
+            GET- Only Particulr Trail
+            
+            </summary>
+            <param name="id">INT id </param>
+            <returns></returns>
+        </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.CreateTrail(ParkyAPI.Models.DTOS.TrailUpsertDTO)">
+            <summary>
+            
+            POST- Create Trail 
+            
+            </summary>
+            <param name="ndto"> TrailDTO ndto</param>
+            <returns></returns>
+        </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.UpdateTrail(System.Int32,ParkyAPI.Models.DTOS.TrailUpsertDTO)">
+            <summary>
+            
+            PATCH -   Update Trail
+            
+            </summary>
+            <param name="id"> INT </param>
+            <param name="npdto"> TrailDTO </param>
+            <returns></returns>
+        </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.DeleteTrail(System.Int32)">
+            <summary>
+            
+            DELETE - Delete Trail
+            
+            </summary>
+            <param name="id"> INT </param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

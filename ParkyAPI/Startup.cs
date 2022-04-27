@@ -35,17 +35,24 @@ namespace ParkyAPI
             
             services.AddScoped<INationalParkRepository, NationalParkRepository>();      //Scoping of interface
 
+            services.AddScoped<ITrailRepository, TrailRepository>();
+
             services.AddAutoMapper(typeof(ParkyMappings));          //automapper to map DTO to original models
 
             services.AddSwaggerGen(options=> {                      //API documentation
                 options.SwaggerDoc("ParkyOpenAPISpec", new Microsoft.OpenApi.Models.OpenApiInfo()
-                {
-
+                { 
                     Title = "Parky API",
-                    Version = "1"
+                    Version = "1",
+                    Description="Parky API",
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                    {
+                        Email = "pratikbablu267@gmail.com",
+                        Name = "Pratik Kumar Hati"
+                    }
                 });
 
-                //Include /// comments in swagger UI
+                //Include ///XML comments in swagger UI
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";       //"Assembly.GetExecutingAssembly().GetName().Name" will retrive Project name from assembly
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlCommentsFullPath);
@@ -65,7 +72,7 @@ namespace ParkyAPI
             app.UseHttpsRedirection();
 
             app.UseSwagger();
-
+                                        
             app.UseSwaggerUI(options=> {
                 options.SwaggerEndpoint("/swagger/ParkyOpenAPISpec/swagger.json", "Parky API");
                 options.RoutePrefix = "";           //we want to use SwaggerUI page as default page, so change "launchUrl" in launchappsetting.json

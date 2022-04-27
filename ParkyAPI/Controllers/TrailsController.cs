@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ParkyAPI.Models;
-using ParkyAPI.Models.DTOs;
+using ParkyAPI.Models.DTOS;
 using ParkyAPI.Repository.IRepository;
 using System;
 using System.Collections.Generic;
@@ -10,40 +10,40 @@ using System.Threading.Tasks;
 
 namespace ParkyAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Trails")]
     [ApiController]
     [ProducesResponseType(400)]
 
     //[ApiExplorerSettings(GroupName = "ParkyOpenAPISpec")]
 
-    public class NationalParksController : Controller       //it will act as api controller
+    public class TrailsController : Controller       //it will act as api controller
     {
-        private INationalParkRepository _npr;
+        private ITrailRepository _tpr;
         private readonly IMapper _imap;
-        public NationalParksController(INationalParkRepository npr, IMapper im)
+        public TrailsController(ITrailRepository tpr, IMapper im)
         {
-            _npr = npr;
+            _tpr = tpr;
             _imap = im;
         }
 
         /// <summary>
         /// 
-        /// GET- List of all NationalParks
+        /// GET- List of all Trails
         /// 
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(List<NationalParkDTO>))]    //successful
-        public IActionResult GetNationalParks()
+        [ProducesResponseType(200, Type = typeof(List<TrailDTO>))]    //successful
+        public IActionResult GetTrails()
         {
-            var objs = _npr.GetNationalParks();
+            var objs = _tpr.GetTrails();
 
             //but map to DTO
-            var objdto = new List<NationalParkDTO>();
+            var objdto = new List<TrailDTO>();
 
             foreach (var x in objs)
             {
-                objdto.Add(_imap.Map<NationalParkDTO>(x));
+                objdto.Add(_imap.Map<TrailDTO>(x));
             }
 
             return Ok(objdto);
@@ -51,19 +51,19 @@ namespace ParkyAPI.Controllers
 
         /// <summary>
         /// 
-        /// GET- Only Particulr NationalPark
+        /// GET- Only Particulr Trail
         /// 
         /// </summary>
         /// <param name="id">INT id </param>
         /// <returns></returns>
 
-        [HttpGet("{id:int}", Name = "GetNationalPark")]
-        [ProducesResponseType(200, Type = typeof(NationalParkDTO))]    //successful
+        [HttpGet("{id:int}", Name = "GetTrail")]
+        [ProducesResponseType(200, Type = typeof(TrailDTO))]    //successful
         [ProducesResponseType(404)]
         [ProducesDefaultResponseType]                           //if none of above returned
-        public IActionResult GetNationalPark(int id)
+        public IActionResult GetTrail(int id)
         {
-            var obj = _npr.GetNationalPark(id);
+            var obj = _tpr.GetTrail(id);
 
             if (obj == null)
             {
@@ -71,36 +71,36 @@ namespace ParkyAPI.Controllers
             }
 
             //but map to DTO
-            var objdto = new NationalParkDTO();
+            var objdto = new TrailDTO();
 
-            objdto = _imap.Map<NationalParkDTO>(obj);
+            objdto = _imap.Map<TrailDTO>(obj);
 
             return Ok(objdto);
         }
 
         /// <summary>
         /// 
-        /// POST- Create NationalPark
+        /// POST- Create Trail 
         /// 
         /// </summary>
-        /// <param name="ndto"> NationalParkDTO ndto</param>
+        /// <param name="ndto"> TrailDTO ndto</param>
         /// <returns></returns>
 
         [HttpPost]
-        [ProducesResponseType(201, Type = typeof(NationalParkDTO))]    //successful
+        [ProducesResponseType(201, Type = typeof(TrailDTO))]    //successful
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         [ProducesDefaultResponseType]
-        public IActionResult CreateNationalPark([FromBody] NationalParkDTO ndto)
+        public IActionResult CreateTrail([FromBody] TrailUpsertDTO ndto)
         {
             if (ndto == null)
             {
                 return BadRequest(ModelState);      //modelstate contains all error info
             }
 
-            if (_npr.NationalParkExists(ndto.Name))
+            if (_tpr.TrailExists(ndto.Name))
             {
-                ModelState.AddModelError("", "National Park Exists Already");
+                ModelState.AddModelError("", "Trail Exists Already");
 
                 return StatusCode(404, ModelState);
             }
@@ -110,41 +110,41 @@ namespace ParkyAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var npobj = _imap.Map<NationalPark>(ndto);  //DTO to normal
+            var npobj = _imap.Map<Trail>(ndto);  //DTO to normal
 
-            if (!_npr.CreateNationalPark(npobj))
+            if (!_tpr.CreateTrail(npobj))
             {
                 ModelState.AddModelError("", $"Something went wrong During Creation For {npobj.Name}");
                 return StatusCode(500, ModelState);
             }
 
-            return CreatedAtRoute("GetNationalPark", new { id = npobj.ID }, npobj);  //imprtant, it will return 201 not 200 Ok
+            return CreatedAtRoute("GetTrail", new { id = npobj.Id }, npobj);  //imprtant, it will return 201 not 200 Ok
         }
 
         /// <summary>
         /// 
-        /// PATCH -   Update NationalPark
+        /// PATCH -   Update Trail
         /// 
         /// </summary>
         /// <param name="id"> INT </param>
-        /// <param name="npdto"> NationalParkDTO </param>
+        /// <param name="npdto"> TrailDTO </param>
         /// <returns></returns>
 
-        [HttpPatch("{id:int}", Name = "UpdateNationalPark")] //when ever we want to modify "NationalFlag"
+        [HttpPatch("{id:int}", Name = "UpdateTrail")] //when ever we want to modify "NationalFlag"
         [ProducesResponseType(204)]    //successful
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         [ProducesDefaultResponseType]
-        public IActionResult UpdateNationalPark(int id, [FromBody] NationalParkDTO npdto)
+        public IActionResult UpdateTrail(int id, [FromBody] TrailUpsertDTO npdto)
         {
-            if (npdto == null || id != npdto.ID)
+            if (npdto == null || id != npdto.Id)
             {
                 return BadRequest(ModelState);
             }
+             
+            var npobj = _imap.Map<Trail>(npdto);
 
-            var npobj = _imap.Map<NationalPark>(npdto);
-
-            if (!_npr.UpdateNationalPark(npobj))
+            if (!_tpr.UpdateTrail(npobj))
             {
                 //backend error
                 ModelState.AddModelError("", $"Something went wrong During Updation For {npobj.Name}");
@@ -156,27 +156,27 @@ namespace ParkyAPI.Controllers
 
         /// <summary>
         /// 
-        /// DELETE - Delete NationalPark
+        /// DELETE - Delete Trail
         /// 
         /// </summary>
         /// <param name="id"> INT </param>
         /// <returns></returns>
 
-        [HttpDelete("{id:int}", Name = "DeleteNationalPark")] //when ever we want to modify "NationalFlag"
+        [HttpDelete("{id:int}", Name = "DeleteTrail")] //when ever we want to modify "NationalFlag"
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(409)]
         [ProducesResponseType(500)]
-        public IActionResult DeleteNationalPark(int id)
+        public IActionResult DeleteTrail(int id)
         {
-            if (!_npr.NationalParkExists(id))
+            if (!_tpr.TrailExists(id))
             {
                 return NotFound(ModelState);
             }
 
-            var nationalpark = _npr.GetNationalPark(id);
+            var nationalpark = _tpr.GetTrail(id);
 
-            if (!_npr.DeleteNationalPark(nationalpark))
+            if (!_tpr.DeleteTrail(nationalpark))
             {
                 //backend error
                 ModelState.AddModelError("", $"Something went wrong During Deletion For {nationalpark.Name}");
