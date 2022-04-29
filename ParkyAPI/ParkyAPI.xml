@@ -49,6 +49,14 @@
             <param name="id"> INT </param>
             <returns></returns>
         </member>
+        <member name="M:ParkyAPI.Controllers.NationalParksV2Controller.GetNationalParks">
+            <summary>
+            
+            GET- List of all NationalParks
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ParkyAPI.Controllers.TrailsController.GetTrails">
             <summary>
             
