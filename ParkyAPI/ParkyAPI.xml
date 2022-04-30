@@ -71,7 +71,16 @@
             GET- Only Particulr Trail
             
             </summary>
-            <param name="id">INT id </param>
+            <param name="trailid">INT trail id </param>
+            <returns></returns>
+        </member>
+        <member name="M:ParkyAPI.Controllers.TrailsController.GetTrailInNationalPark(System.Int32)">
+            <summary>
+            
+            GET- Only Particulr Trail
+            
+            </summary>
+            <param name="nationalparkid">INT nationalpark id </param>
             <returns></returns>
         </member>
         <member name="M:ParkyAPI.Controllers.TrailsController.CreateTrail(ParkyAPI.Models.DTOS.TrailCreateDTO)">

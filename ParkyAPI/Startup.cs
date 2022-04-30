@@ -45,7 +45,7 @@ namespace ParkyAPI
             services.AddApiVersioning(options =>                    //api versionaing
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);  //default api version in "1"
                 options.ReportApiVersions = true;
             });
 

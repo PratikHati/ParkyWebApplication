@@ -4,21 +4,19 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ParkyAPI.Models
+namespace ParkyWeb.Models
 {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    public class NationalPark       //DOMAIN (Main) model
+    public class NationalPark    //to display data by binding them to this model. DbMigration not needed as data will come from ParkyAPI
     {
-        [Key]
         public int ID { get; set; }
+
         [Required]
         public string Name { get; set; }
+
         [Required]
         public string State { get; set; }
         public DateTime Created { get; set; }
         public DateTime Established { get; set; }
         public byte[] Picture { get; set; }
-
     }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

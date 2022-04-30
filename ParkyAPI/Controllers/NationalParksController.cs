@@ -113,7 +113,7 @@ namespace ParkyAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var npobj = _imap.Map<NationalPark>(ndto);  //DTO to normal
+            var npobj = _imap.Map<NationalPark>(ndto);  //DTO to normals
 
             if (!_npr.CreateNationalPark(npobj))
             {
@@ -121,7 +121,8 @@ namespace ParkyAPI.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return CreatedAtRoute("GetNationalPark", new { id = npobj.ID }, npobj);  //imprtant, it will return 201 not 200 Ok
+            return CreatedAtRoute("GetNationalPark", new { version = HttpContext.GetRequestedApiVersion().ToString() ,
+                                                            id = npobj.ID }, npobj);  //imprtant, it will return 201 not 200 Ok
         }
 
         /// <summary>
@@ -133,7 +134,7 @@ namespace ParkyAPI.Controllers
         /// <param name="npdto"> NationalParkDTO </param>
         /// <returns></returns>
 
-        [HttpPatch("{id:int}", Name = "UpdateNationalPark")] //when ever we want to modify "NationalFlag"
+        [HttpPatch("{id:int}", Name = "UpdateNationalPark")] //when ever we want to modify "NationalPark"
         [ProducesResponseType(204)]    //successful
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]

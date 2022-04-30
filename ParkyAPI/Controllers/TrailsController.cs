@@ -56,16 +56,16 @@ namespace ParkyAPI.Controllers
         /// GET- Only Particulr Trail
         /// 
         /// </summary>
-        /// <param name="id">INT id </param>
+        /// <param name="trailid">INT trail id </param>
         /// <returns></returns>
 
         [HttpGet("{id:int}", Name = "GetTrail")]
         [ProducesResponseType(200, Type = typeof(TrailDTO))]    //successful
         [ProducesResponseType(404)]
         [ProducesDefaultResponseType]                           //if none of above returned
-        public IActionResult GetTrail(int id)
+        public IActionResult GetTrail(int trailid)
         {
-            var obj = _tpr.GetTrail(id);
+            var obj = _tpr.GetTrail(trailid);
 
             if (obj == null)
             {
@@ -79,6 +79,40 @@ namespace ParkyAPI.Controllers
 
             return Ok(objdto);
         }
+
+
+        /// <summary>
+        /// 
+        /// GET- Only Particulr Trail
+        /// 
+        /// </summary>
+        /// <param name="nationalparkid">INT nationalpark id </param>
+        /// <returns></returns>
+
+        [HttpGet("GetTrailInNationalPark/{id:int}")]
+        [ProducesResponseType(200, Type = typeof(List<TrailDTO>))]    //successful
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]                           //if none of above returned
+        public IActionResult GetTrailInNationalPark(int nationalparkid)
+        {
+            var objlist = _tpr.GetTrailsNationalPark(nationalparkid);
+
+            if (objlist == null)
+            {
+                return NotFound();
+            }
+
+            var objdtolist = new List<TrailDTO>();
+
+            foreach (var o in objlist)
+            {
+                //but map to DTO
+                objdtolist.Add(_imap.Map<TrailDTO>(o));
+            }
+
+            return Ok(objdtolist);
+        }
+
 
         /// B<summary>
         /// 
