@@ -80,7 +80,7 @@ namespace ParkyWeb.Repository
 
         public async Task<T> GetAsync(string url, int id)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var request = new HttpRequestMessage(HttpMethod.Get, url+id);
 
             var client = _ihcf.CreateClient();
 
