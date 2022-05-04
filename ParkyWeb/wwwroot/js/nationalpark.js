@@ -18,10 +18,10 @@ function loadDataTable() {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="text-center">
-                                <a href="/nationalParks/Upsert/${data}" class='btn btn-success text-white'
+                                <a href="/nationalParks/Upsert/${data}" class='btn btn-success text-white'      /*upsert*/
                                     style='cursor:pointer;'> <i class='far fa-edit'></i></a>
                                     &nbsp;
-                                <a onclick=Delete("/nationalParks/Delete/${data}") class='btn btn-danger text-white'
+                                <a onclick=Delete("/nationalParks/Delete/${data}") class='btn btn-danger text-white'    /*delete*/
                                     style='cursor:pointer;'> <i class='far fa-trash-alt'></i></a>
                                 </div>
                             `;
@@ -45,15 +45,15 @@ function Delete(url) {
                 url: url,
                 success: function (data) {
                     if (data.success) {
-                        toastr.success(data.message);
-                        dataTable.ajax.reload();
+                        toastr.success(data.message);   //toaster notification(success)
+                        dataTable.ajax.reload();        //reload rest objects   
                     }
                     else {
-                        toastr.error(data.message);
+                        toastr.error(data.message);     //toaster notification(error)
                     }
                 }
             });
         }
     });
 
-}
+}    
