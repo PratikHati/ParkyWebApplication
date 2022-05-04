@@ -23,6 +23,9 @@ namespace ParkyAPI.Models
         public DifficultyType Difficulty { get; set; }
 
         [Required]
+        public double Elevation { get; set; }
+
+        [Required]
         public int NationalParkId { get; set; }
 
         [ForeignKey("NationalParkId")]
