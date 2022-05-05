@@ -80,7 +80,23 @@ namespace ParkyWeb.Repository
 
         public async Task<T> GetAsync(string url, int id)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, url+id);
+            string helper = "";     //Fixed url path
+            if (url.Contains("trails"))
+            {
+                string temp1 = "?trailid=";
+                string c = id.ToString().Trim();
+                string temp2 = temp1+c;
+                helper = temp2.Trim();
+             
+            }
+            else
+            {
+                string temp1 = "?nationalparkid=";
+                string c = id.ToString().Trim();
+                string temp2 = temp1 + c;
+                helper = temp2.Trim();
+            }
+            var request = new HttpRequestMessage(HttpMethod.Get, url+id+helper);
 
             var client = _ihcf.CreateClient();
 
@@ -92,7 +108,8 @@ namespace ParkyWeb.Repository
 
                 return JsonConvert.DeserializeObject<T>(obj);
             }
-            return null;
+            else
+                return null;
         }
 
         public async Task<bool> UpdateAsync(string url, T objToUpdate)

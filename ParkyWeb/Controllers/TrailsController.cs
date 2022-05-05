@@ -37,8 +37,9 @@ namespace ParkyWeb.Controllers
                     //for DROPDOWN 
                     Text = x.Name,
                     Value = x.ID.ToString()
-                })
-                   //Trail will be filled later
+                }),
+                //Trail will be filled later
+                Trail = new Trail()     //create a dummy instance (not null)
             };
                 
             if(id== null)                   //insert or create
