@@ -18,7 +18,7 @@ function loadDataTable() {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="text-center">
-                                <a href="/nationalParks/Upsert/${data}" class='btn btn-success text-white'      /*upsert*/
+                                <a href="/nationalParks/Upsert/${data}" class='btn btn-success text-dark'      /*upsert*/
                                     style='cursor:pointer;'> <i class='far fa-edit'></i></a>
                                     &nbsp;
                                 <a onclick=Delete("/nationalParks/Delete/${data}") class='btn btn-danger text-white'    /*delete*/
