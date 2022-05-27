@@ -21,7 +21,7 @@ namespace ParkyAPI.Controllers
 
     //[ApiExplorerSettings(GroupName = "ParkyOpenAPISpec")]
 
-    public class NationalParksV2Controller : Controller       //it will act as api controller
+    public class NationalParksV2Controller : ControllerBase       //it will act as api controller
     {
         private INationalParkRepository _npr;
         private readonly IMapper _imap;

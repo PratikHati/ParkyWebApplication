@@ -17,5 +17,7 @@ namespace ParkyAPI.Date
         public DbSet<NationalPark> NationalParks { get; set; }
 
         public DbSet<Trail> Trails { get; set; }
+
+        public DbSet<Users> Users { get; set; }
     }
 }
