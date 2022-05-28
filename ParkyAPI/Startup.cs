@@ -40,6 +40,9 @@ namespace ParkyAPI
              
             services.AddScoped<ITrailRepository, TrailRepository>();
 
+            services.AddScoped<IUserRepository, UserRepository>();
+
+
             services.AddAutoMapper(typeof(ParkyMappings));          //automapper to map DTO to original models
 
             services.AddApiVersioning(options =>                    //api versionaing
