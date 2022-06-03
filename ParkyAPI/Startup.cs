@@ -149,6 +149,12 @@ namespace ParkyAPI
 
             app.UseRouting();
 
+            //to add bearer tokens
+
+            app.UseCors(x=> x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
