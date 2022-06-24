@@ -7,6 +7,6 @@ namespace ParkyAPI
 {
     public class AppSettings
     {
-        public string Secret { get; set; }      //BH get the hell out of here
+        public string Secret { get; set; }      
     }
 }

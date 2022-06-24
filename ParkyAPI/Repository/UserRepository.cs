@@ -35,6 +35,7 @@ namespace ParkyAPI.Repository
             //generate JWT token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secretKey.Secret);   //get the key
+
             //token attributes
             var tokenDesc = new SecurityTokenDescriptor
             {
@@ -49,6 +50,8 @@ namespace ParkyAPI.Repository
             var token = tokenHandler.CreateToken(tokenDesc);//at last generate token
 
             user.Token = tokenHandler.WriteToken(token);//assign token
+
+            user.Password = "";     //remove password
 
             return user;        //return user object
         }
