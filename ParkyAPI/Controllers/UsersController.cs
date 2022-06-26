@@ -36,5 +36,30 @@ namespace ParkyAPI.Controllers
             return Ok(user);
         }
 
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] Users user)
+        {
+            bool isUniqueUser = _irp.IsUserUnique(user.UserName);
+
+            if (isUniqueUser)
+            {
+                var newuser = _irp.Register(user.UserName,user.Password);
+
+                if(newuser == null)
+                {
+                    return BadRequest(new { message = "unable to register!" });
+                }
+                else
+                {
+                    return Ok();
+                }
+            }
+            else
+            {
+                return BadRequest(new { message = "user alreday exists!"});
+            }
+        }
+
     }
 }

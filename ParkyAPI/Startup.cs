@@ -37,6 +37,8 @@ namespace ParkyAPI
         // This method gets called by the runtime. Use this method to add services to the container.(Dependency Injection done here)
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();     //to add bearer tokens
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddScoped<INationalParkRepository, NationalParkRepository>();      //Scoping of interface
